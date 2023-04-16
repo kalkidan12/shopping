@@ -18,50 +18,54 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      padding: EdgeInsets.only(left: 15, top: 15, right: 15),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Our Products',
-                  style: TextStyle(
-                      fontSize: 25,
-                      color: Color.fromARGB(255, 0, 88, 79),
-                      fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('Sort by',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color.fromARGB(255, 0, 88, 79),
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.sort_by_alpha,
-                          color: Color.fromARGB(255, 0, 88, 79),
-                        ))
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CatagoryList(),
-            const SizedBox(
-              height: 15,
-            ),
-            ProductList(),
-          ],
+    return SingleChildScrollView(
+      child: Expanded(
+        child: Container(
+          // height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Our Products',
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Color.fromARGB(255, 0, 88, 79),
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Sort by',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color.fromARGB(255, 0, 88, 79),
+                          )),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.sort_by_alpha,
+                            color: Color.fromARGB(255, 0, 88, 79),
+                          ))
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CatagoryList(),
+              const SizedBox(
+                height: 15,
+              ),
+              ProductList(),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );
