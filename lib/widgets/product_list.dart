@@ -15,7 +15,6 @@ class _ProductListState extends State<ProductList> {
   Future<List<dynamic>>? productsList;
   Future<List<dynamic>?> getProducts() async {
     productsList = ProductService.getAllProducts();
-    print(productsList!);
     return productsList;
   }
 
@@ -45,6 +44,7 @@ class _ProductListState extends State<ProductList> {
                         onTap: (() {
                           Navigator.pushNamed(context, '/product-detail',
                               arguments: {
+                                'product-id': products[index]['id'],
                                 'product-title': products[index]['title'],
                                 'product-image': products[index]['images'][0],
                                 'product-description': products[index]

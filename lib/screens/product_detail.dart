@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping/provider/cart_provider.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({super.key});
@@ -12,6 +14,7 @@ class _ProductDetailState extends State<ProductDetail> {
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
+    final cartProvider = Provider.of<CartProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -135,6 +138,12 @@ class _ProductDetailState extends State<ProductDetail> {
                     padding: EdgeInsets.all(10),
                     child: ElevatedButton(
                         onPressed: () {
+                          cartProvider.addToCart(
+                              arguments['product-id'].toString(),
+                              arguments['product-title'],
+                              double.parse(
+                                  arguments['product-price'].toString()),
+                              1);
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               backgroundColor: Colors.teal,
                               content: Text(arguments['product-title'] +

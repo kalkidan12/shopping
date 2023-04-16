@@ -52,7 +52,7 @@ class CartProvider with ChangeNotifier {
       () => CartModel(
           productId: productId,
           productTitle: productTitle,
-          productQuantity: 1,
+          productQuantity: productQuantity,
           productPrice: productPrice),
     );
     notifyListeners();
