@@ -1,3 +1,7 @@
+// firebase
+// rest api
+//  payment
+
 import 'dart:convert';
 
 import 'package:provider/model/product_model.dart';
@@ -17,17 +21,24 @@ class ProductService {
     }
   }
 
-  Future<List<ProductModel>?> fetchAllProduct() async {
-    List<ProductModel> allProducts = [];
+  static Future<List<dynamic>> getAllProducts() async {
     var uri = Uri.parse(Constants.ProductApiBaseUrl);
     try {
       http.Response response = await http.get(uri);
       if (response.statusCode == 200) {
-        allProducts.add(jsonDecode(response.body));
-        return allProducts;
+        Map<String, dynamic> mapedData = json.decode(response.body);
+        List<dynamic> products = mapedData["products"];
+
+        return products;
+      } else {
+        print('ellllllllllllllllllllllllse');
+
+        return [];
       }
     } catch (e) {
-      print(e);
+      print(e.toString());
+      print('errrrrrrrrrrrrrrrrrrrrrrrrrrrrrro');
+      return [];
     }
   }
 
