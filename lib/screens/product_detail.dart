@@ -55,7 +55,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             backgroundColor: Colors.teal,
                             content: Text(arguments['product-title'] +
-                                ' Added To Cart Favorite')));
+                                ' Added To Favorite successfully')));
                       },
                       icon: Icon(
                         Icons.favorite,

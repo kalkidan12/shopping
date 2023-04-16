@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/screens/product_detail.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping/provider/cart_provider.dart';
+import 'package:shopping/screens/product_detail.dart';
 
 import 'screens/home_screen.dart';
 
@@ -8,7 +10,11 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider.value(
+      value: CartProvider(),
+    )
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Shopping App',
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),

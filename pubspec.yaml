@@ -1,4 +1,4 @@
-name: provider
+name: shopping
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -34,6 +34,8 @@ dependencies:
     sdk: flutter
   flutter_rating_bar: ^4.0.1
   http: ^0.13.5
+
+  provider: ^6.0.5
   scroll_to_hide_bottom_navigation_bar: ^0.0.1
 
 dev_dependencies:

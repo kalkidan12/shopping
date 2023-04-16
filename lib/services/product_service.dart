@@ -4,9 +4,9 @@
 
 import 'dart:convert';
 
-import 'package:provider/model/product_model.dart';
-import 'package:provider/utils/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:shopping/model/product_model.dart';
+import 'package:shopping/utils/constants.dart';
 
 class ProductService {
   Future getAllCatagories() async {

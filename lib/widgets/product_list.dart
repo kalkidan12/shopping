@@ -2,8 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/model/product_model.dart';
-import 'package:provider/services/product_service.dart';
+import 'package:shopping/services/product_service.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key});
