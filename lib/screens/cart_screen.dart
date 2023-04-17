@@ -46,6 +46,14 @@ class _CartScreenState extends State<CartScreen> {
             ],
           ),
         ),
+        appBar: AppBar(
+          elevation: 1,
+          title: Text(
+            'My Cart',
+            style: TextStyle(color: Colors.white, fontSize: 22),
+          ),
+          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20, top: 10),

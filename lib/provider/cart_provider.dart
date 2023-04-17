@@ -71,4 +71,8 @@ class CartProvider with ChangeNotifier {
     _cartItems.remove(productId);
     notifyListeners();
   }
+
+  bool isCartedItem(String productId) {
+    return _cartItems.containsKey(productId);
+  }
 }

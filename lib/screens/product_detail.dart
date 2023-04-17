@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping/provider/cart_provider.dart';
+import 'package:shopping/provider/favorite_provider.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({super.key});
@@ -15,6 +16,7 @@ class _ProductDetailState extends State<ProductDetail> {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     final cartProvider = Provider.of<CartProvider>(context);
+    final favoriteProvider = Provider.of<FavoriteProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -53,18 +55,48 @@ class _ProductDetailState extends State<ProductDetail> {
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
-                  IconButton(
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            backgroundColor: Colors.teal,
-                            content: Text(arguments['product-title'] +
-                                ' Added To Favorite successfully')));
-                      },
-                      icon: Icon(
-                        Icons.favorite,
-                        color: Colors.grey,
-                        size: 30,
-                      ))
+                  favoriteProvider
+                          .isFavoredItem(arguments['product-id'].toString())
+                      ? IconButton(
+                          onPressed: () {
+                            favoriteProvider.removeItem(
+                              arguments['product-id'].toString(),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                backgroundColor: Colors.red,
+                                content: Text(arguments['product-title'] +
+                                    ' removed from Favorite successfully')));
+                          },
+                          icon: Icon(
+                            Icons.favorite,
+                            color: favoriteProvider.isFavoredItem(
+                                    arguments['product-id'].toString())
+                                ? Colors.red
+                                : Colors.grey,
+                            size: 30,
+                          ))
+                      : IconButton(
+                          onPressed: () {
+                            favoriteProvider.addToFavorite(
+                                arguments['product-id'].toString(),
+                                arguments['product-title'],
+                                arguments['product-description'],
+                                double.parse(
+                                    arguments['product-price'].toString()),
+                                arguments['product-image']);
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                backgroundColor: Colors.teal,
+                                content: Text(arguments['product-title'] +
+                                    ' Added To Favorite successfully')));
+                          },
+                          icon: Icon(
+                            Icons.favorite,
+                            color: favoriteProvider.isFavoredItem(
+                                    arguments['product-id'].toString())
+                                ? Colors.red
+                                : Colors.grey,
+                            size: 30,
+                          ))
                 ],
               ),
               Text(
@@ -134,26 +166,39 @@ class _ProductDetailState extends State<ProductDetail> {
                     ),
                   ),
                   Container(
-                    height: 60,
-                    padding: EdgeInsets.all(10),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          cartProvider.addToCart(
-                              arguments['product-id'].toString(),
-                              arguments['product-title'],
-                              double.parse(
-                                  arguments['product-price'].toString()),
-                              1);
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              backgroundColor: Colors.teal,
-                              content: Text(arguments['product-title'] +
-                                  ' Added To Cart Successfully')));
-                        },
-                        child: Text(
-                          'Add To Cart',
-                          style: TextStyle(fontSize: 16),
-                        )),
-                  )
+                      height: 60,
+                      padding: EdgeInsets.all(10),
+                      child: cartProvider
+                              .isCartedItem(arguments['product-id'].toString())
+                          ? ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/cart-screen');
+                              },
+                              child: Text(
+                                'View In Cart',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            )
+                          : ElevatedButton(
+                              onPressed: () {
+                                cartProvider.addToCart(
+                                    arguments['product-id'].toString(),
+                                    arguments['product-title'],
+                                    double.parse(
+                                        arguments['product-price'].toString()),
+                                    1);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        backgroundColor: Colors.teal,
+                                        content: Text(arguments[
+                                                'product-title'] +
+                                            ' Added To Cart Successfully')));
+                              },
+                              child: Text(
+                                'Add To Cart',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ))
                 ],
               )
             ],
