@@ -52,67 +52,95 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 final id =
                                     cart.favoriteItems.keys.toList()[index];
 
-                                return Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    color: Color.fromARGB(255, 250, 250, 250),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          // color: Color.fromARGB(255, 240, 240, 240),
-                                          color: Color.fromARGB(
-                                              255, 222, 222, 222),
-                                          spreadRadius: 1,
-                                          blurRadius: 1,
-                                          offset: Offset(1, 1)),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          height: 100,
-                                          child:
-                                              Image.network(item.productImage),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              item.productTitle,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                            Text(
+                                return GestureDetector(
+                                  onTap: (() {
+                                    Navigator.pushNamed(
+                                        context, '/product-detail',
+                                        arguments: {
+                                          'product-id': item.productId,
+                                          'product-title': item.productTitle,
+                                          'product-image': item.productImage,
+                                          'product-description':
                                               item.productDescription,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(fontSize: 14),
-                                            ),
-                                            Text(
-                                              '\$' +
-                                                  item.productPrice.toString(),
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                          ],
-                                        ),
+                                          'product-price': item.productPrice,
+                                        });
+                                  }),
+                                  child: Dismissible(
+                                    key: Key(item.productId.toString()),
+                                    onDismissed: ((direction) {
+                                      favoriteProvider
+                                          .removeItem(item.productId);
+                                    }),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        color:
+                                            Color.fromARGB(255, 250, 250, 250),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              // color: Color.fromARGB(255, 240, 240, 240),
+                                              color: Color.fromARGB(
+                                                  255, 222, 222, 222),
+                                              spreadRadius: 1,
+                                              blurRadius: 1,
+                                              offset: Offset(1, 1)),
+                                        ],
                                       ),
-                                    ],
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              height: 100,
+                                              child: Image.network(
+                                                  item.productImage),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  item.productTitle,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.left,
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                                Text(
+                                                  item.productDescription,
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.left,
+                                                  style:
+                                                      TextStyle(fontSize: 14),
+                                                ),
+                                                Text(
+                                                  '\$' +
+                                                      item.productPrice
+                                                          .toString(),
+                                                  textAlign: TextAlign.left,
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 );
                               },
