@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping/provider/cart_provider.dart';
+import 'package:shopping/screens/payments/choose_payment_method.dart';
 import 'package:shopping/widgets/empty_cart.dart';
 
 class CartScreen extends StatefulWidget {
@@ -21,8 +22,8 @@ class _CartScreenState extends State<CartScreen> {
         floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Colors.teal,
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => CartScreen()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ChoosePaymentMethod()));
           },
           shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(5)),
           label: Row(

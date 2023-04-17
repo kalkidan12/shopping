@@ -6,7 +6,7 @@ import 'package:shopping/provider/favorite_provider.dart';
 import 'package:shopping/screens/cart_screen.dart';
 import 'package:shopping/screens/product_detail.dart';
 
-import 'screens/home_screen.dart';
+import 'screens/main_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

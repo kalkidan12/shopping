@@ -32,7 +32,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.0.2
   flutter_rating_bar: ^4.0.1
+  flutter_stripe: ^9.1.1
   http: ^0.13.5
 
   provider: ^6.0.5
@@ -53,6 +55,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
+    - .env
     - assets/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
