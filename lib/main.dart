@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping/constants/strip_constants.dart';
 import 'package:shopping/provider/cart_provider.dart';
 import 'package:shopping/provider/favorite_provider.dart';
 import 'package:shopping/screens/cart_screen.dart';
@@ -12,10 +13,9 @@ import 'screens/main_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
-  Stripe.publishableKey = dotenv.env['STRIP_PUBLISHABLE_KEY']!;
-  ;
-  Stripe.publishableKey = '';
+
+  Stripe.publishableKey = StripConstants.STRIPE_PUBLISHABLE_KEY;
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));

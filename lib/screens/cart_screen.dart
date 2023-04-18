@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping/provider/cart_provider.dart';
-import 'package:shopping/screens/payments/choose_payment_method.dart';
+import 'package:shopping/services/payment_services.dart';
 import 'package:shopping/widgets/empty_cart.dart';
 
 class CartScreen extends StatefulWidget {
@@ -19,34 +19,37 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Colors.teal,
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ChoosePaymentMethod()));
-          },
-          shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          label: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '${cartProvider.itemCount}',
-                style: TextStyle(fontSize: 18),
-              ),
-              const SizedBox(width: 10),
-              Text(
-                'CHECKOUT',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(width: 10),
-              Text(
-                '${cartProvider.totalAmount.roundToDouble()}',
-                style: TextStyle(fontSize: 18),
-              ),
-            ],
-          ),
-        ),
+        floatingActionButton: cartProvider.cartItems.length != 0
+            ? FloatingActionButton.extended(
+                backgroundColor: Colors.teal,
+                onPressed: () {
+                  PaymentServices().makePayment(context);
+                },
+                shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+                label: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '${cartProvider.itemCount}',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'CHECKOUT',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      '${cartProvider.totalAmount.roundToDouble()}',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ],
+                ),
+              )
+            : Container(),
         appBar: AppBar(
           elevation: 1,
           title: Text(
@@ -108,7 +111,7 @@ class _CartScreenState extends State<CartScreen> {
                                             children: [
                                               Text(
                                                 item.productTitle,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 18,
                                                     color: Color.fromARGB(
                                                         255, 37, 37, 37)),
@@ -120,7 +123,7 @@ class _CartScreenState extends State<CartScreen> {
                                                 '\$' +
                                                     item.productPrice
                                                         .toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 18,
                                                     color: Color.fromARGB(
                                                         255, 37, 37, 37)),
